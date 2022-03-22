@@ -1,5 +1,8 @@
 <template>
-  <v-btn @click="getData">button</v-btn>
+  <div>
+    <v-btn @click="getData">button</v-btn>
+    <div>{{ users.map((user) => user.first_name) }}</div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -11,16 +14,16 @@ import { UsersQuery, UsersQuery_users } from './generated/UsersQuery';
 export default Vue.extend({
   name: 'App',
 
-  data: () => ({}),
+  data: () => ({
+    users: [] as UsersQuery_users[],
+  }),
   methods: {
     getData: async function () {
       const { data }: { data: UsersQuery } = await apolloClient.query({
         query: getUsers,
       });
 
-      const users: UsersQuery_users[] = data.users;
-
-      console.log(users.map((user) => user.first_name));
+      this.users = data.users;
     },
   },
 });

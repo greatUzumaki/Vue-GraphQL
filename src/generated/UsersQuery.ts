@@ -11,6 +11,7 @@ export interface UsersQuery_users {
   __typename: "users";
   first_name: string | null;
   last_name: string | null;
+  email: string;
 }
 
 export interface UsersQuery {
